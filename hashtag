@@ -1,0 +1,127 @@
+#/bin/bash
+
+cd /home/usuario/Documentos/hashtag/
+menu=$(zenity --list --radiolist --width=250 --height=210 --title="Hashtag" --text "Bienvenido\n¿Qué desea hacer?" --hide-header --column "A" --column "B" TRUE "Abrir el manual" FALSE "Ejecutar DDB" FALSE "Ejecutar instalador" FALSE "Ir a la página oficial" FALSE "Cuentanos tú opinión")
+
+if [[ -z $menu ]]
+then
+exit
+elif [[ $menu == "Abrir el manual" ]]
+then
+firefox http://localhost/hashtag/manual.html
+elif [[ $menu == "Ejecutar DDB" ]]
+then
+zenity --info --title="DDB" --text="DDB utiliza el comando dd para grabar una iso a un usb.\nSe recomienda un dispositivo con 8GB como mínimo.\nRecuerda desmontar el usb antes de extraerlo."
+#######
+#busca dispositivos que empiecen por sd*, excepto sda y sr0
+usb=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sd*)
+
+if [ -z $usb ]
+then
+zenity --error --title="No encontrado" --text="No se ha encontrado ningun dispositivo usb conectado al equipo."
+exit
+fi
+#busca la cantidad de dispositivos conectados: sdb, sdc, sdd
+sdb=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdb |tr -s " " |sed "2d" |cut -f1 -d " ")
+sdc=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdc |tr -s " " |sed "3d" |cut -f1 -d " ")
+sdd=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdd |tr -s " " |sed "4d" |cut -f1 -d " ")
+
+#si el dispositivo no existe, lo deja sin valor, de lo contrario guarda información de los dispositivos que encuentre.
+if [ -z $sdb ]
+then
+$sdb=""
+else
+sdbinfo=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdb |tr -s " " |sed "2d" | sed 's/sd.//g')
+fi
+
+if [ -z $sdc ]
+then
+$sdc=""
+else
+sdcinfo=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdc |tr -s " " |sed "3d" | sed 's/sd.//g')
+fi
+
+if [ -z $sdd ]
+then
+$sdd=""
+else 
+sddinfo=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdd |tr -s " " |sed "4d" | sed 's/sd.//g')
+fi
+
+iso=$(zenity --file-selection --title="Seleciona una .iso" --file-selection --file-filter='ISO files (iso) | *.iso')
+
+if [ -z $iso ]
+then
+	exit
+fi
+info=$(zenity --list --text="¿A donde desea copiar la iso?\nMarque una opción antes de continuar." --width=450 --height=300 --column "Dispositivo" --column "Información" "$sdb" "$sdbinfo" "$sdc" "$sdcinfo" "$sdd" "$sddinfo")
+
+
+if [ -z $info ]
+then
+exit
+fi
+
+continue=$(zenity --question --title="¿Desea continuar?" --text="ATENCIÓN: Se copiará $iso a /dev/$info y se desmontará el dispositivo automáticamente al finalizar.\nSE BORRARÁN TODAS LAS PARTICIONES Y TODOS LOS DATOS de $info.\nCuando pulse aceptar empezará la copia, se le notificará al finalizar.")
+
+
+pkexec dd bs=4M if=$iso of=/dev/$info
+umount /dev/$info
+zenity --info --title="DDB" --text="Finalizado"
+#######
+elif [[ $menu == "Ejecutar instalador" ]]
+then
+zenity --info --title="Instalador" --text="Se instalarán los programas que seleciones.\nNo marcar ninguna opción cerrará el programa."
+#######
+#ANDROID
+pregunta1=$(zenity  --list --title "Etapa 1 de 3: Android" --ok-label="Siguiente" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Android-headers" "Android Platform Headers from AOSP releases" "" "Libandroid-properties-dev" "Development headers files for libandroid-properties" "" "Google-android-sdk-docs-installer" "Android SDK Documentation from Google" "" "Google-android-build-tools-installer" "Google build tools for Android (aapt, aidl, dexdump, dx)" "" "Android-libandroidfw-dev" "Android utility library - Development files" "" "Android-libcutils-dev" "Android utils library for C - Development files" "" "Android-libhost-dev" "Android utility library for cross-platform tools - headers" "" "Android-liblog-dev" "Android logging library - Development files" "" "Android-libutils-dev" "Android utility library - Development files" "" "Android-libzipfile-dev" "Android zipfile library - Development files" "" "Android-system-dev" "Android system development headers" "" "Android-tools-adb" "Android Debug Bridge CLI tool" "" " " "No me interesa ninguna de estas opciones" --separator=", " ); 
+
+if [[ $pregunta1 == "" ]]
+then
+	exit
+fi
+
+#EDITORES DE TEXTO
+pregunta2=$(zenity  --list --title "Etapa 2 de 3: Editor de texto" --ok-label="Siguiente" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Vim" "Es una versión mejorada del editor de texto vi" "" "Vi" "Editor de texto" "" "Gnuemacs" "An extensible, customizable, free/libre text editor — and more." "" "Gnunano" "Editor de texto" "" "Mousepad" "Editor de texto por defecto en xfce" "" "Anjuta" "Anjuta permite programar en C, C++, Java, Python y Vala" "" "Gedit" "Editor de texto con interfaz gráfica" "" " " "No me interesa ninguna de estas opciones"   --separator=", " ); 
+
+if [[ $pregunta2 == "" ]]
+then
+	exit
+fi
+
+#OTROS
+pregunta3=$(zenity  --list --title "Etapa 3 de 3: Otros" --ok-label="Siguiente y empezar la instalación" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Vlc" "Reproductor multimedia de VideoLan" "" "Rhythmbox" "Reproductor de audio inspirado en itunes(incluido en ubuntu)" "" "Wine" "Programa para utilizar ejecutables de windows" "" "Gimp" "Editor de imagenes" "" "Minitube" "Reproductor de video que admite el streaming" "" "Nautilus" "Gestor de archivos que viene por defecto en gnome y unity" "" "Pcmanfm" "Gestor de archivos muy ligero que viene por defecto en lxde" "" "Audacity" "Editor de audio" "" "Qbittorrent" "Permite la subida y la bajada de archivos torrent" "" "Bleachbit" "Libera espacio de tu disco duro y protege tu privacidad" "" "K3b" "Grabador de CD y DVD que viene por defecto con el escritorio kde" "" "Blender" "Crea animaciones en 3D" "" "Wireshark" "Capturador de paquetes" "" " " "No me interesa ninguna de estas opciones" --separator=", "  );
+
+if [[ $pregunta3 == "" ]]
+then
+	exit
+fi
+
+if [[ ( $pregunta1 == " " && $pregunta2 == " " && $pregunta3 == " ") ]]
+then
+zenity --error --title="Error" --text="No se ha seleccionado ningún programa."
+exit
+fi
+
+
+
+#CONFIRMACION
+zenity --info --width=650 --height=200 --title="Se instalarán los siguientes programas" --text="$pregunta1$pregunta2$pregunta3"
+
+
+#MAYÚSCULAS A MINÚSCULAS
+minus=$(echo $pregunta1 $pregunta2 $pregunta3 |tr [[:upper:]] [[:lower:]] )
+
+#TERMINAL
+xterm -xrm 'XTerm.vt100.allowTitle0ps: false' -T Instalador -fa 'Monospace' -fs 14 -e sudo apt-get install -y $minus 
+zenity --info --title="Finalizado" --text="Finalizada la instalación"
+
+
+#######
+elif [[ $menu == "Ir a la página oficial" ]]
+then
+firefox --private-window http://hashtag-linux.blogspot.com.es
+elif [[ $menu == "Cuentanos tú opinión" ]]
+then
+firefox --private-window "https://mail.google.com/mail/u/0/?view=cm&fs=1&to=aberdun@elpuig.xeill.net,scamarasa@elpuig.xeill.net&tf=1"
+fi
