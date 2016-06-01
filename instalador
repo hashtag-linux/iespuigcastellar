@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#ANDROID
-pregunta1=$(zenity  --list --title "Etapa 1 de 3: Android" --ok-label="Siguiente" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Android-headers" "Android Platform Headers from AOSP releases" "" "Libandroid-properties-dev" "Development headers files for libandroid-properties" "" "Google-android-sdk-docs-installer" "Android SDK Documentation from Google" "" "Google-android-build-tools-installer" "Google build tools for Android (aapt, aidl, dexdump, dx)" "" "Android-libandroidfw-dev" "Android utility library - Development files" "" "Android-libcutils-dev" "Android utils library for C - Development files" "" "Android-libhost-dev" "Android utility library for cross-platform tools - headers" "" "Android-liblog-dev" "Android logging library - Development files" "" "Android-libutils-dev" "Android utility library - Development files" "" "Android-libzipfile-dev" "Android zipfile library - Development files" "" "Android-system-dev" "Android system development headers" "" "Android-tools-adb" "Android Debug Bridge CLI tool" "" " " "No me interesa ninguna de estas opciones" --separator=", " ); 
+pregunta1=$(zenity  --list --title "Etapa 1 de 3: Android" --ok-label="Siguiente" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Android-headers" "Android Platform Headers from AOSP releases" "" "Libandroid-properties-dev" "Development headers files for libandroid-properties" "" "Google-android-sdk-docs-installer" "Android SDK Documentation from Google" "" "Google-android-build-tools-installer" "Google build tools for Android (aapt, aidl, dexdump, dx)" "" "Android-libandroidfw-dev" "Android utility library - Development files" "" "Android-libcutils-dev" "Android utils library for C - Development files" "" "Android-liblog-dev" "Android logging library - Development files" "" "Android-libutils-dev" "Android utility library - Development files" "" "Android-libzipfile-dev" "Android zipfile library - Development files" "" "Android-system-dev" "Android system development headers" "" "Android-tools-adb" "Android Debug Bridge CLI tool" "" " " "No me interesa ninguna de estas opciones" --separator=" " ); 
 
 if [[ $pregunta1 == "" ]]
 then
@@ -9,7 +8,7 @@ then
 fi
 
 #EDITORES DE TEXTO
-pregunta2=$(zenity  --list --title "Etapa 2 de 3: Editor de texto" --ok-label="Siguiente" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Vim" "Es una versión mejorada del editor de texto vi" "" "Vi" "Editor de texto" "" "Gnuemacs" "An extensible, customizable, free/libre text editor — and more." "" "Gnunano" "Editor de texto" "" "Mousepad" "Editor de texto por defecto en xfce" "" "Anjuta" "Anjuta permite programar en C, C++, Java, Python y Vala" "" "Gedit" "Editor de texto con interfaz gráfica" "" " " "No me interesa ninguna de estas opciones"   --separator=", " ); 
+pregunta2=$(zenity  --list --title "Etapa 2 de 3: Editor de texto" --ok-label="Siguiente" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Vim" "Es una versión mejorada del editor de texto vi" "" "emacs" "An extensible, customizable, free/libre text editor — and more." "" "Nano" "Editor de texto" "" "Mousepad" "Editor de texto por defecto en xfce" "" "Anjuta" "Anjuta permite programar en C, C++, Java, Python y Vala" "" "Gedit" "Editor de texto con interfaz gráfica" "" " " "No me interesa ninguna de estas opciones"   --separator=" " ); 
 
 if [[ $pregunta2 == "" ]]
 then
@@ -17,7 +16,7 @@ then
 fi
 
 #OTROS
-pregunta3=$(zenity  --list --title "Etapa 3 de 3: Otros" --ok-label="Siguiente y empezar la instalación" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Vlc" "Reproductor multimedia de VideoLan" "" "Rhythmbox" "Reproductor de audio inspirado en itunes(incluido en ubuntu)" "" "Wine" "Programa para utilizar ejecutables de windows" "" "Gimp" "Editor de imagenes" "" "Minitube" "Reproductor de video que admite el streaming" "" "Nautilus" "Gestor de archivos que viene por defecto en gnome y unity" "" "Pcmanfm" "Gestor de archivos muy ligero que viene por defecto en lxde" "" "Audacity" "Editor de audio" "" "Qbittorrent" "Permite la subida y la bajada de archivos torrent" "" "Bleachbit" "Libera espacio de tu disco duro y protege tu privacidad" "" "K3b" "Grabador de CD y DVD que viene por defecto con el escritorio kde" "" "Blender" "Crea animaciones en 3D" "" "Wireshark" "Capturador de paquetes" "" " " "No me interesa ninguna de estas opciones" --separator=", "  );
+pregunta3=$(zenity  --list --title "Etapa 3 de 3: Otros" --ok-label="Siguiente y empezar la instalación" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Vlc" "Reproductor multimedia de VideoLan" "" "Rhythmbox" "Reproductor de audio inspirado en itunes(incluido en ubuntu)" "" "Wine" "Programa para utilizar ejecutables de windows" "" "Gimp" "Editor de imagenes" "" "Minitube" "Reproductor de video que admite el streaming" "" "Nautilus" "Gestor de archivos que viene por defecto en gnome y unity" "" "Pcmanfm" "Gestor de archivos muy ligero que viene por defecto en lxde" "" "Audacity" "Editor de audio" "" "Qbittorrent" "Permite la subida y la bajada de archivos torrent" "" "Bleachbit" "Libera espacio de tu disco duro y protege tu privacidad" "" "K3b" "Grabador de CD y DVD que viene por defecto con el escritorio kde" "" "Blender" "Crea animaciones en 3D" "" "Wireshark" "Capturador de paquetes" "" " " "No me interesa ninguna de estas opciones" --separator=" "  );
 
 if [[ $pregunta3 == "" ]]
 then
@@ -30,16 +29,14 @@ zenity --error --title="Error" --text="No se ha seleccionado ningún programa."
 exit
 fi
 
-
-
 #CONFIRMACION
-zenity --info --width=650 --height=200 --title="Se instalarán los siguientes programas" --text="$pregunta1$pregunta2$pregunta3"
+zenity --info --width=650 --height=200 --title="Se instalarán los siguientes programas" --text="$pregunta1 $pregunta2 $pregunta3"
 
 
 #MAYÚSCULAS A MINÚSCULAS
-minus=$(echo $pregunta1 $pregunta2 $pregunta3 |tr [[:upper:]] [[:lower:]] )
+typeset -l lcase
+lcase=$(echo $pregunta1 $pregunta2 $pregunta3 )
 
 #TERMINAL
-xterm -xrm 'XTerm.vt100.allowTitle0ps: false' -T Instalador -fa 'Monospace' -fs 14 -e sudo apt-get install -y $minus 
+xterm -xrm 'XTerm.vt100.allowTitle0ps: false' -T Instalador -fa 'Monospace' -fs 14 -e sudo apt-get install $lcase
 zenity --info --title="Finalizado" --text="Finalizada la instalación"
-
