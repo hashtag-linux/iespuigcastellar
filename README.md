@@ -2,8 +2,8 @@
 
 Bienvenidos, aqui teneis los codigos del script por separado, y otro archivo con todo integrado
 
-* DDB: Este script incluye el programa dd 
+* **DDB:** Este script incluye el programa dd 
 
-* Instalador: Incluye solo el script instalador
+* **Instalador:** Incluye solo el script instalador
 
-* Hashtag: Incluye el programa completo
+* **Hashtag:** Incluye el programa completo
