@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 cd /home/usuario/Documentos/hashtag/
 menu=$(zenity --list --radiolist --width=250 --height=210 --title="Hashtag" --text "Bienvenido\n¿Qué desea hacer?" --hide-header --column "A" --column "B" TRUE "Abrir el manual" FALSE "Ejecutar DDB" FALSE "Ejecutar instalador" FALSE "Ir a la página oficial" FALSE "Cuentanos tú opinión")
