@@ -1,7 +1,4 @@
 #!/bin/bash 
-
-
-cd /home/usuario/Documentos/hashtag/
 menu=$(zenity --list --radiolist --width=250 --height=250 --title="Hashtag" --text "Bienvenido\n¿Qué desea hacer?" --hide-header --column "A" --column "B" TRUE "Abrir el manual" FALSE "Ejecutar DDB" FALSE "Ejecutar instalador" FALSE "Github" FALSE "Ir a la página oficial" FALSE "Cuentanos tú opinión" FALSE "Canal de youtube")
 
 if [[ -z $menu ]]
@@ -13,7 +10,7 @@ firefox http://localhost/hashtag/manual.html
 elif [[ $menu == "Ejecutar DDB" ]]
 then
 zenity --info --title="DDB" --text="DDB utiliza el comando dd para grabar una iso a un usb.\nSe recomienda un dispositivo con 8GB como mínimo.\nRecuerda desmontar el usb antes de extraerlo."
-#######
+#######DDB##############################
 #busca dispositivos que empiecen por sd*, excepto sda y sr0
 usb=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sd*)
 
@@ -69,11 +66,11 @@ continue=$(zenity --question --title="¿Desea continuar?" --text="ATENCIÓN: Se 
 pkexec dd bs=4M if=$iso of=/dev/$info
 umount /dev/$info
 zenity --info --title="DDB" --text="Finalizado"
-#######
+#######FIN#DDB################
 elif [[ $menu == "Ejecutar instalador" ]]
 then
 zenity --info --title="Instalador" --text="Se instalarán los programas que seleciones.\nNo marcar ninguna opción cerrará el programa."
-#######
+#######Instalador##########
 #ANDROID
 pregunta1=$(zenity  --list --title "Etapa 1 de 3: Android" --ok-label="Siguiente" --cancel-label="Salir" --text "Marca una opción para continuar..." --width=800 --height=600 --checklist  --column "Instalar" --column "Programas" --column "Informacion" FALSE "Android-headers" "Android Platform Headers from AOSP releases" "" "Libandroid-properties-dev" "Development headers files for libandroid-properties" "" "Google-android-sdk-docs-installer" "Android SDK Documentation from Google" "" "Google-android-build-tools-installer" "Google build tools for Android (aapt, aidl, dexdump, dx)" "" "Android-libandroidfw-dev" "Android utility library - Development files" "" "Android-libcutils-dev" "Android utils library for C - Development files" "" "Android-liblog-dev" "Android logging library - Development files" "" "Android-libutils-dev" "Android utility library - Development files" "" "Android-libzipfile-dev" "Android zipfile library - Development files" "" "Android-system-dev" "Android system development headers" "" "Android-tools-adb" "Android Debug Bridge CLI tool" "" " " "No me interesa ninguna de estas opciones" --separator=" " ); 
 
@@ -117,7 +114,7 @@ xterm -xrm 'XTerm.vt100.allowTitle0ps: false' -T Instalador -fa 'Monospace' -fs 
 zenity --info --title="Finalizado" --text="Finalizada la instalación"
 
 
-#######
+#########FIN#Instalador###########
 elif [[ $menu == "Github" ]]
 then
 firefox https://github.com/hashtag-linux/iespuigcastellar
