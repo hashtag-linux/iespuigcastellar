@@ -1,0 +1,20 @@
+h1 {
+    text-align: center;
+}
+
+.content {
+  background: rgba(255, 255, 255, 255.35);
+  border-radius: 3px;
+  font-family: Arial;
+  top: 10px;
+  margin-left: 180px;
+  margin-right: 240px;
+  z-index: 2;
+  padding: 0 10px;
+}
+
+img {
+  width:100%;
+  height:auto;
+}
+
