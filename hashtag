@@ -115,15 +115,20 @@ zenity --info --title="Finalizado" --text="Finalizada la instalación"
 
 
 #########FIN#Instalador###########
+
+########GITHUB#######
 elif [[ $menu == "Github" ]]
 then
 firefox https://github.com/hashtag-linux/iespuigcastellar
+######BLOGSPOT#######
 elif [[ $menu == "Ir a la página oficial" ]]
 then
 firefox --private-window http://hashtag-linux.blogspot.com.es
+##########GMAIL#####
 elif [[ $menu == "Cuentanos tú opinión" ]]
 then
 firefox --private-window "https://mail.google.com/mail/u/0/?view=cm&fs=1&to=aberdun@elpuig.xeill.net,scamarasa@elpuig.xeill.net&tf=1"
+######YOUTUBE######
 elif [[ $menu == "Canal de youtube" ]]
 then
 firefox https://www.youtube.com/channel/UCW2umP9m8cD4RsBgYYm3hRw
