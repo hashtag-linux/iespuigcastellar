@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Busca dispositivos usb
-usb=$(lsblk -fm | sed '/sda/d' | grep ^sd*)
+usb=$(lsblk -fm | sed '/sda/d' | grep ^sd.)
 
 if [ -z $usb ]
 then
@@ -9,9 +9,9 @@ zenity --error --title="No encontrado" --text="No se ha encontrado ningun dispos
 exit
 fi
 #busca la cantidad de dispositivos conectados: sdb, sdc, sdd
-sdb=$(lsblk -fm | grep ^sdb |tr -s " " |cut -f1 -d " ")
-sdc=$(lsblk -fm | grep ^sdc |tr -s " " |cut -f1 -d " ")
-sdd=$(lsblk -fm | grep ^sdd |tr -s " " |cut -f1 -d " ")
+sdb=$(lsblk -fm | grep ^sdb)
+sdc=$(lsblk -fm | grep ^sdc)
+sdd=$(lsblk -fm | grep ^sdd)
 
 #si el dispositivo no existe, lo deja sin valor, de lo contrario guarda información de los dispositivos que encuentre.
 if [ -z $sdb ]
