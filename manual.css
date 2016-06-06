@@ -3,11 +3,11 @@ h1 {
 }
 
 .content {
-  background: rgba(255, 255, 255, 255.35);
+  background: rgba(255, 255, 255, 255);
   font-family: Arial;
   margin-left: 180px;
   margin-right: 240px;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 img {
