@@ -1,51 +1,44 @@
 #!/bin/bash 
 menu=$(zenity --list --radiolist --width=250 --height=250 --title="Hashtag" --text "Bienvenido\n¿Qué desea hacer?" --hide-header --column "A" --column "B" TRUE "Abrir el manual" FALSE "Ejecutar DDB" FALSE "Ejecutar instalador" FALSE "Github" FALSE "Ir a la página oficial" FALSE "Cuentanos tú opinión" FALSE "Canal de youtube")
-
-if [[ -z $menu ]]
+	if [[ -z $menu ]]
 then
 exit
-elif [[ $menu == "Abrir el manual" ]]
+	elif [[ $menu == "Abrir el manual" ]]
 then
 firefox http://localhost/hashtag/manual.html
-elif [[ $menu == "Ejecutar DDB" ]]
+	elif [[ $menu == "Ejecutar DDB" ]]
 then
 zenity --info --title="DDB" --text="DDB utiliza el comando dd para grabar una iso a un usb.\nSe recomienda un dispositivo con 8GB como mínimo.\nRecuerda desmontar el usb antes de extraerlo."
 #######DDB##############################
-##!/bin/bash
+#!/bin/bash
 
 #Busca dispositivos usb
 usb=$(lsblk -fm | sed '/sda/d' | grep ^sd.)
 
 if [ -z $usb ]
 then
-zenity --error --title="No encontrado" --text="No se ha encontrado ningún dispositivo usb conectado al equipo."
+	zenity --error --title="No encontrado" --text="No se ha encontrado ningún dispositivo usb conectado al equipo."
 exit
 fi
 #busca la cantidad de dispositivos conectados: sdb, sdc, sdd
-sdb=$(lsblk -fm | grep ^sdb)
-sdc=$(lsblk -fm | grep ^sdc)
-sdd=$(lsblk -fm | grep ^sdd)
+sdb=$(lsblk -fm | grep ^sdb | cut -f1 -d' ')
+sdc=$(lsblk -fm | grep ^sdc | cut -f1 -d' ')
+sdd=$(lsblk -fm | grep ^sdd | cut -f1 -d' ')
 
 #Guarda información de cada dispositivo que encuentre: sdb sdc sdd
-if [ -z $sdb ]
+if [ ! -z $sdb ]
 then
-$sdb=""
-else
-sdbinfo=$(lsblk -fm |grep ^sdb |tr -s " " |sed 's/sdb//g')
+	sdbinfo=$(lsblk -fm |grep ^sdb |tr -s " " |sed 's/sdb//g')
 fi
 
-if [ -z $sdc ]
+if [ ! -z $sdc ]
 then
-$sdc=""
-else
-sdcinfo=$(lsblk -fm | grep ^sdc |tr -s " " | sed 's/sdc//g')
+	sdcinfo=$(lsblk -fm | grep ^sdc |tr -s " " | sed 's/sdc//g')
 fi
 
-if [ -z $sdd ]
+if [ ! -z $sdd ]
 then
-$sdd=""
-else 
-sddinfo=$(lsblk -fm | grep ^sdd |tr -s " " | sed 's/sdd//g')
+	sddinfo=$(lsblk -fm | grep ^sdd |tr -s " " | sed 's/sdd//g')
 fi
 
 iso=$(zenity --file-selection --title="Seleciona una .iso" --file-selection --file-filter='ISO files (iso) | *.iso')
@@ -59,18 +52,17 @@ info=$(zenity --list --text="¿A dónde desea copiar la iso?\nMarque una opción
 
 if [ -z $info ]
 then
-exit
+	exit
 fi
 
 continue=$(zenity --question --title="¿Desea continuar?" --text="ATENCIÓN: Se copiará $iso a /dev/$info y se desmontará el dispositivo automáticamente al finalizar.\nSE BORRARÁN TODAS LAS PARTICIONES Y TODOS LOS DATOS de $info.\nCuando pulse aceptar empezará la copia, se le notificará al finalizar.")
-
 
 pkexec dd bs=4M if=$iso of=/dev/$info
 umount /dev/$info
 zenity --info --title="DDB" --text="Finalizado"
 
 #######FIN#DDB################
-elif [[ $menu == "Ejecutar instalador" ]]
+	elif [[ $menu == "Ejecutar instalador" ]]
 then
 zenity --info --title="Instalador" --text="Se instalarán los programas que seleciones.\nNo marcar ninguna opción cerrará el programa."
 #######Instalador##########
@@ -116,23 +108,22 @@ lcase=$(echo $pregunta1 $pregunta2 $pregunta3 )
 xterm -xrm 'XTerm.vt100.allowTitle0ps: false' -T Instalador -fa 'Monospace' -fs 14 -e sudo apt-get install $lcase
 zenity --info --title="Finalizado" --text="Finalizada la instalación"
 
-
 #########FIN#Instalador###########
 
 ########GITHUB#######
-elif [[ $menu == "Github" ]]
+	elif [[ $menu == "Github" ]]
 then
 firefox https://github.com/hashtag-linux/iespuigcastellar
 ######BLOGSPOT#######
-elif [[ $menu == "Ir a la página oficial" ]]
+	elif [[ $menu == "Ir a la página oficial" ]]
 then
 firefox --private-window http://hashtag-linux.blogspot.com.es
 ##########GMAIL#####
-elif [[ $menu == "Cuentanos tú opinión" ]]
+	elif [[ $menu == "Cuentanos tú opinión" ]]
 then
 firefox --private-window "https://mail.google.com/mail/u/0/?view=cm&fs=1&to=aberdun@elpuig.xeill.net,scamarasa@elpuig.xeill.net&tf=1"
 ######YOUTUBE######
-elif [[ $menu == "Canal de youtube" ]]
+	elif [[ $menu == "Canal de youtube" ]]
 then
 firefox https://www.youtube.com/channel/UCW2umP9m8cD4RsBgYYm3hRw
 fi
