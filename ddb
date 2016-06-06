@@ -14,24 +14,18 @@ sdc=$(lsblk -fm | grep ^sdc)
 sdd=$(lsblk -fm | grep ^sdd)
 
 #Guarda información de cada dispositivo que encuentre: sdb sdc sdd
-if [ -z $sdb ]
+if [ ! -z $sdb ]
 then
-	$sdb=""
-else
 	sdbinfo=$(lsblk -fm |grep ^sdb |tr -s " " |sed 's/sdb//g')
 fi
 
-if [ -z $sdc ]
+if [ ! -z $sdc ]
 then
-	$sdc=""
-else
 	sdcinfo=$(lsblk -fm | grep ^sdc |tr -s " " | sed 's/sdc//g')
 fi
 
-if [ -z $sdd ]
+if [ ! -z $sdd ]
 then
-	$sdd=""
-else 
 	sddinfo=$(lsblk -fm | grep ^sdd |tr -s " " | sed 's/sdd//g')
 fi
 
