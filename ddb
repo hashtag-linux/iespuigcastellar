@@ -16,23 +16,23 @@ sdd=$(lsblk -fm | grep ^sdd)
 #Guarda información de cada dispositivo que encuentre: sdb sdc sdd
 if [ -z $sdb ]
 then
-$sdb=""
+	$sdb=""
 else
-sdbinfo=$(lsblk -fm |grep ^sdb |tr -s " " |sed 's/sdb//g')
+	sdbinfo=$(lsblk -fm |grep ^sdb |tr -s " " |sed 's/sdb//g')
 fi
 
 if [ -z $sdc ]
 then
-$sdc=""
+	$sdc=""
 else
-sdcinfo=$(lsblk -fm | grep ^sdc |tr -s " " | sed 's/sdc//g')
+	sdcinfo=$(lsblk -fm | grep ^sdc |tr -s " " | sed 's/sdc//g')
 fi
 
 if [ -z $sdd ]
 then
-$sdd=""
+	$sdd=""
 else 
-sddinfo=$(lsblk -fm | grep ^sdd |tr -s " " | sed 's/sdd//g')
+	sddinfo=$(lsblk -fm | grep ^sdd |tr -s " " | sed 's/sdd//g')
 fi
 
 iso=$(zenity --file-selection --title="Seleciona una .iso" --file-selection --file-filter='ISO files (iso) | *.iso')
@@ -46,7 +46,7 @@ info=$(zenity --list --text="¿A dónde desea copiar la iso?\nMarque una opción
 
 if [ -z $info ]
 then
-exit
+	exit
 fi
 
 continue=$(zenity --question --title="¿Desea continuar?" --text="ATENCIÓN: Se copiará $iso a /dev/$info y se desmontará el dispositivo automáticamente al finalizar.\nSE BORRARÁN TODAS LAS PARTICIONES Y TODOS LOS DATOS de $info.\nCuando pulse aceptar empezará la copia, se le notificará al finalizar.")
