@@ -5,7 +5,7 @@ usb=$(lsblk -fm | sed '/sda/d' | grep ^sd.)
 
 if [ -z $usb ]
 then
-zenity --error --title="No encontrado" --text="No se ha encontrado ningun dispositivo usb conectado al equipo."
+zenity --error --title="No encontrado" --text="No se ha encontrado ningún dispositivo usb conectado al equipo."
 exit
 fi
 #busca la cantidad de dispositivos conectados: sdb, sdc, sdd
@@ -41,7 +41,7 @@ if [ -z $iso ]
 then
 	exit
 fi
-info=$(zenity --list --text="¿A donde desea copiar la iso?\nMarque una opción antes de continuar." --width=450 --height=300 --column "Dispositivo" --column "Información" "$sdb" "$sdbinfo" "$sdc" "$sdcinfo" "$sdd" "$sddinfo")
+info=$(zenity --list --text="¿A dónde desea copiar la iso?\nMarque una opción antes de continuar." --width=450 --height=300 --column "Dispositivo" --column "Información" "$sdb" "$sdbinfo" "$sdc" "$sdcinfo" "$sdd" "$sddinfo")
 
 
 if [ -z $info ]
