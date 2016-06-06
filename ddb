@@ -9,9 +9,9 @@ then
 exit
 fi
 #busca la cantidad de dispositivos conectados: sdb, sdc, sdd
-sdb=$(lsblk -fm | grep ^sdb)
-sdc=$(lsblk -fm | grep ^sdc)
-sdd=$(lsblk -fm | grep ^sdd)
+sdb=$(lsblk -fm | grep ^sdb | cut -f1 -d' ')
+sdc=$(lsblk -fm | grep ^sdc | cut -f1 -d' ')
+sdd=$(lsblk -fm | grep ^sdd | cut -f1 -d' ')
 
 #Guarda información de cada dispositivo que encuentre: sdb sdc sdd
 if [ ! -z $sdb ]
