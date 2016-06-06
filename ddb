@@ -5,7 +5,7 @@ usb=$(lsblk -fm | sed '/sda/d' | grep ^sd.)
 
 if [ -z $usb ]
 then
-zenity --error --title="No encontrado" --text="No se ha encontrado ningún dispositivo usb conectado al equipo."
+	zenity --error --title="No encontrado" --text="No se ha encontrado ningún dispositivo usb conectado al equipo."
 exit
 fi
 #busca la cantidad de dispositivos conectados: sdb, sdc, sdd
