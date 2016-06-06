@@ -13,7 +13,7 @@ sdb=$(lsblk -fm | grep ^sdb)
 sdc=$(lsblk -fm | grep ^sdc)
 sdd=$(lsblk -fm | grep ^sdd)
 
-#si el dispositivo no existe, lo deja sin valor, de lo contrario guarda información de los dispositivos que encuentre.
+#Guarda información de cada dispositivo que encuentre: sdb sdc sdd
 if [ -z $sdb ]
 then
 $sdb=""
