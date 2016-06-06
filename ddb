@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#busca dispositivos que empiecen por sd*, excepto sda y sr0
-usb=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sd*)
+#Busca dispositivos usb
+usb=$(lsblk -fm | sed '/sda/d' | grep ^sd*)
 
 if [ -z $usb ]
 then
@@ -9,30 +9,30 @@ zenity --error --title="No encontrado" --text="No se ha encontrado ningun dispos
 exit
 fi
 #busca la cantidad de dispositivos conectados: sdb, sdc, sdd
-sdb=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdb |tr -s " " |sed "2d" |cut -f1 -d " ")
-sdc=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdc |tr -s " " |sed "3d" |cut -f1 -d " ")
-sdd=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdd |tr -s " " |sed "4d" |cut -f1 -d " ")
+sdb=$(lsblk -fm | grep ^sdb |tr -s " " |cut -f1 -d " ")
+sdc=$(lsblk -fm | grep ^sdc |tr -s " " |cut -f1 -d " ")
+sdd=$(lsblk -fm | grep ^sdd |tr -s " " |cut -f1 -d " ")
 
 #si el dispositivo no existe, lo deja sin valor, de lo contrario guarda información de los dispositivos que encuentre.
 if [ -z $sdb ]
 then
 $sdb=""
 else
-sdbinfo=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdb |tr -s " " |sed "2d" | sed 's/sd.//g')
+sdbinfo=$(lsblk -fm |grep ^sdb |tr -s " " |sed 's/sdb//g')
 fi
 
 if [ -z $sdc ]
 then
 $sdc=""
 else
-sdcinfo=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdc |tr -s " " |sed "3d" | sed 's/sd.//g')
+sdcinfo=$(lsblk -fm | grep ^sdc |tr -s " " | sed 's/sdc//g')
 fi
 
 if [ -z $sdd ]
 then
 $sdd=""
 else 
-sddinfo=$(lsblk -fm | sed '/sda/d' | sed '/sr0/d' | grep ^sdd |tr -s " " |sed "4d" | sed 's/sd.//g')
+sddinfo=$(lsblk -fm | grep ^sdd |tr -s " " | sed 's/sdd//g')
 fi
 
 iso=$(zenity --file-selection --title="Seleciona una .iso" --file-selection --file-filter='ISO files (iso) | *.iso')
