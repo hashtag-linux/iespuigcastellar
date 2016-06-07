@@ -43,9 +43,8 @@ then
 	exit
 fi
 
-continue=$(zenity --question --title="¿Desea continuar?" --text="ATENCIÓN: Se copiará $iso a /dev/$info y se desmontará el dispositivo automáticamente al finalizar.\nSE BORRARÁN TODAS LAS PARTICIONES Y TODOS LOS DATOS de $info.\nCuando pulse aceptar empezará la copia, se le notificará al finalizar.")
+continue=$(zenity --question --title="¿Desea continuar?" --text="ATENCIÓN: Se copiará $iso a /dev/$info RECUERDE desmontar el disposivo al finalizar, se aplicarán los cambios al expulsarlo.\nSE BORRARÁN TODAS LAS PARTICIONES Y TODOS LOS DATOS de $info.\nCuando pulse aceptar empezará la copia, se le notificará al finalizar.")
 
 
 pkexec dd bs=4M if=$iso of=/dev/$info
-umount /dev/$info
 zenity --info --title="DDB" --text="Finalizado"
